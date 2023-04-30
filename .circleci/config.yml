@@ -1,13 +1,13 @@
 version: 2.1
 
 orbs:
-  android: circleci/android@2.2.0
+  android: circleci/android@0.2.0
 
 jobs:
   build:
-    docker:
-      - image: cimg/android:2023.04
+    executor: android/android
+
     steps:
       - checkout
-      - run: ./gradlew androidDependencies
-      - run: ./gradlew lint
+      - run:
+          command: ./gradlew build
