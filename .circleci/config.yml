@@ -5,11 +5,9 @@ orbs:
 
 jobs:
   build:
-    executor:
-      name: android/android-machine
-      resource-class: xlarge
-
+    docker:
+      - image: cimg/android:2023.04
     steps:
       - checkout
-      - run:
-          command: ./gradlew build
+      - run: ./gradlew androidDependencies
+      - run: ./gradlew lint
