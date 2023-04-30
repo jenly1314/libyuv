@@ -9,5 +9,5 @@ jobs:
 
     steps:
       - checkout
-      - run:
-          command: ./gradlew clean
+#      - run:
+#          command: ./gradlew build

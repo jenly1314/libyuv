@@ -3,6 +3,7 @@
 [![Download](https://img.shields.io/badge/download-App-blue.svg)](https://raw.githubusercontent.com/jenly1314/libyuv/master/app/release/app-release.apk)
 [![MavenCentral](https://img.shields.io/maven-central/v/com.github.jenly1314/libyuv)](https://repo1.maven.org/maven2/com/github/jenly1314/libyuv)
 [![JitPack](https://jitpack.io/v/jenly1314/libyuv.svg)](https://jitpack.io/#jenly1314/libyuv)
+[![CI](https://github.com/jenly1314/libyuv/workflows/build/badge.svg)](https://github.com/jenly1314/libyuv/actions)
 [![CircleCI](https://circleci.com/gh/jenly1314/libyuv.svg?style=svg)](https://circleci.com/gh/jenly1314/libyuv)
 [![API](https://img.shields.io/badge/API-21%2B-blue.svg?style=flat)](https://android-arsenal.com/api?level=21)
 [![License](https://img.shields.io/badge/license-Apche%202.0-blue.svg)](http://www.apache.org/licenses/LICENSE-2.0)
