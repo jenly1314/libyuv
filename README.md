@@ -46,7 +46,7 @@ implementation 'com.github.jenly1314:libyuv:1.0.0'
 常用的方法功能主要包括各种YUV与RGB之间相互转换、裁减、旋转、缩放、镜像等操作；下面就以文档注释的方式对各个方法功能做一个简要说明。
 
 #### 格式转换（小试牛刀）
-```
+```java
 /**
  * 将Image转换为I420
  *
@@ -57,7 +57,7 @@ implementation 'com.github.jenly1314:libyuv:1.0.0'
 LibYuv.imageToI420(image, degrees)
 ```
 
-```
+```java
 /**
  * NV21转I420
  *
@@ -69,7 +69,7 @@ LibYuv.imageToI420(image, degrees)
 LibYuv.nv21ToI420(nv21Data, width, height)
 ```
 
-```
+```java
 /**
  * I420转NV21
  *
@@ -83,7 +83,7 @@ LibYuv.i420ToNv21(i420Data, width, height)
 
 #### 通用格式转换（各种YUV与RGB之间相互转换）
 
-```
+```java
 /**
  * 将I420数据转换为指定格式的数据
  *
@@ -96,7 +96,7 @@ LibYuv.i420ToNv21(i420Data, width, height)
 LibYuv.convertFromI420(i420Data, width, height, fourcc)
 ```
 
-```
+```java
 /**
  * 将指定格式的数据转换为I420数据
  *
@@ -110,7 +110,7 @@ LibYuv.convertToI420(dstData, width, height, fourcc)
 ```
 
 #### 旋转
-```
+```java
 /**
  * 将指定格式的数据进行旋转
  *
@@ -125,7 +125,7 @@ LibYuv.rotate(srcData, width, height, degrees, fourcc)
 ```
 
 #### 缩放
-```
+```java
 /**
  * 将指定格式的数据进行缩放
  *
@@ -142,7 +142,7 @@ LibYuv.scale(srcData, width, height, dstWidth, dstHeight, fourcc, filterMode)
 ```
 
 #### 裁减
-```
+```java
 /**
  * 将指定格式的数据进行裁减
  *
@@ -157,7 +157,7 @@ LibYuv.crop(srcData, width, height, cropRect, fourcc)
 ```
 
 #### 镜像
-```
+```java
 /**
  * 将指定格式的数据进行镜像翻转
  *
