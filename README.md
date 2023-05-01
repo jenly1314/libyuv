@@ -35,7 +35,7 @@ allprojects {
 2. 在Module的 **build.gradle** 里面添加引入依赖项
 
 ```gradle
-// AndroidX 版本
+// AndroidX 
 implementation 'com.github.jenly1314:libyuv:1.0.0'
 
 ```
@@ -46,7 +46,7 @@ implementation 'com.github.jenly1314:libyuv:1.0.0'
 
 常用的方法功能主要包括各种YUV与RGB之间相互转换、裁减、旋转、缩放、镜像等操作；下面就以文档注释的方式对各个方法功能做一个简要说明。
 
-#### 格式转换（小试牛刀）
+#### 格式转换
 ```java
 /**
  * 将Image转换为I420
@@ -82,7 +82,7 @@ LibYuv.nv21ToI420(nv21Data, width, height)
 LibYuv.i420ToNv21(i420Data, width, height)
 ```
 
-#### 通用格式转换（各种YUV与RGB之间相互转换）
+##### 通用格式转换（各种YUV与RGB之间相互转换）
 
 ```java
 /**
@@ -175,7 +175,7 @@ LibYuv.mirror(srcData, width, height, fourcc)
 
 **温馨提示**
 
-* 关于**FourCC** 说明；在 **[FourCC](libyuv/src/main/java/com/king/libyuv/FourCC.java)** 中定义了很多数据格式类型（各种YUV与RGB格式；例如：I420、NV21、ARGB等）；
+* 关于**FourCC** 说明；在 **[FourCC](libyuv/src/main/java/com/king/libyuv/FourCC.java)** 中定义了很多数据格式类型（各种YUV与RGB格式；例如：I420、I422、NV21、NV12、ARGB、BGRA等）；
 > 在使用各转换方法时，明确转换前和转换后的数据格式类型，这一点很重要。
 
 * 还有个小细节需要注意，如果在转换过程中出现转换结果图像的颜色与源图像颜色不一致时，很大可能是数据格式的问题；也就是数据的排列顺序不对，这时只需修改下入参的数据格式就行。
