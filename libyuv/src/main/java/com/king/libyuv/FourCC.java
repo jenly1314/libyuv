@@ -110,6 +110,7 @@ public enum FourCC {
      * YV24
      */
     FOURCC_YV24("YV24");
+
     private final String format;
     private final long code;
 

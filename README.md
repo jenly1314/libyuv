@@ -30,7 +30,7 @@ LibYuv：基于Google的libyuv编译封装的YUV转换工具库，主要用途�
 
 2. 在Module的 **build.gradle** 里面添加引入依赖项
     ```gradle
-    // AndroidX 
+    // AndroidX
     implementation 'com.github.jenly1314:libyuv:1.0.0'
     ```
 
@@ -165,20 +165,23 @@ LibYuv.crop(srcData, width, height, cropRect, fourcc)
 LibYuv.mirror(srcData, width, height, fourcc)
 ```
 
-更多使用详情，请查看[app](app)中的源码使用示例或直接查看 [API帮助文档](https://jitpack.io/com/github/jenly1314/libyuv/latest/javadoc/)
+更多使用详情，请查看[app](app)中的源码使用示例或直接查看 [API帮助文档](https://jenly1314.github.io/libyuv/api/)
 
 **温馨提示**
 
-* 关于**FourCC** 说明；在 **[FourCC](libyuv/src/main/java/com/king/libyuv/FourCC.java)** 中定义了很多数据格式类型（各种YUV与RGB格式；例如：I420、I422、NV21、NV12、ARGB、BGRA等）；
+* 关于 **FourCC** 说明；在 **[FourCC](libyuv/src/main/java/com/king/libyuv/FourCC.java)** 中定义了很多数据格式类型（各种YUV与RGB格式；例如：I420、I422、NV21、NV12、ARGB、BGRA等）；
 > 在使用各转换方法时，明确转换前和转换后的数据格式类型，这一点很重要。
 
 * 还有个小细节需要注意，如果在转换过程中出现转换结果图像的颜色与源图像颜色不一致时，很大可能是数据格式的问题；也就是数据的排列顺序不对，这时只需修改下入参的数据格式就行。
 > 比如：当使用 **RGBA** 数据进行转换操作时，在使用LibYuv时数据的排列顺序是反的，这时需使用 **ABGR** 来表示这个排列（即：指定数据格式为：`FourCC.FOURCC_ABGR`）
 
 ## 相关推荐
-#### [CameraScan](https://github.com/jenly1314/CameraScan) 一个简化扫描识别流程的通用基础库
 
-## 版本记录
+- [CameraScan](https://github.com/jenly1314/CameraScan) 一个简化扫描识别流程的通用基础库
+
+<!-- end -->
+
+## 版本日志
 
 #### v1.0.0：2023-4-30
 * libyuv初始版本
