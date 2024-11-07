@@ -1,7 +1,7 @@
 # Project information
 site_name: libyuv
 site_url: https://jenly1314.github.io/libyuv/
-site_description: "libyuv for Android"
+site_description: "LibYuv for Android"
 site_author: Jenly
 remote_branch: gh-pages
 edit_uri: ""
