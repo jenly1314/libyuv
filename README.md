@@ -101,7 +101,7 @@ LibYuv.convertFromI420(i420Data, width, height, fourcc)
  * @param fourcc  指定数据格式；{@link FourCC}
  * @return 返回I420数据
  */
-LibYuv.convertToI420(dstData, width, height, fourcc)
+LibYuv.convertToI420(srcData, width, height, fourcc)
 ```
 
 #### 旋转
