@@ -1,10 +1,9 @@
 package com.king.libyuv.app
 
 import android.widget.ImageView
-import com.king.mlkit.vision.camera.AnalyzeResult
-import com.king.mlkit.vision.camera.BaseCameraScanActivity
-import com.king.mlkit.vision.camera.analyze.Analyzer
-import com.king.mlkit.vision.camera.config.ResolutionCameraConfig
+import com.king.camera.scan.AnalyzeResult
+import com.king.camera.scan.BaseCameraScanActivity
+import com.king.camera.scan.analyze.Analyzer
 
 /**
  * @author <a href="mailto:jenly1314@gmail.com">Jenly</a>
@@ -28,6 +27,7 @@ class ImageScanActivity : BaseCameraScanActivity<Unit>() {
         result.bitmap?.let {
             ivImage.setImageBitmap(it)
         }
+        cameraScan.setAnalyzeImage(true)
     }
 
     override fun createAnalyzer(): Analyzer<Unit>? {

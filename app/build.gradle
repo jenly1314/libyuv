@@ -49,7 +49,7 @@ dependencies {
 
     implementation "androidx.lifecycle:lifecycle-runtime-ktx:$versions.lifecycleRuntimeKtx"
 
-    implementation "com.github.jenly1314.MLKit:mlkit-camera-core:$versions.mlkitCameraCore"
+    implementation "com.github.jenly1314:camera-scan:$versions.camerascan"
 
     implementation project(':libyuv')
 

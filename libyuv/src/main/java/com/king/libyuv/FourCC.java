@@ -15,7 +15,6 @@
  */
 package com.king.libyuv;
 
-
 import androidx.annotation.NonNull;
 
 /**
@@ -165,13 +164,13 @@ public enum FourCC {
             case FOURCC_R444:
 
             case FOURCC_YV16:
-                size = width * height << 1;
+                size = (this == FOURCC_I422 || this == FOURCC_YV16) ? (width * height + ((((width + 1) >> 1) * height) << 1)) : (width * height << 1);
                 break;
             // 24
             case FOURCC_24BG:
             case FOURCC_RAW:
             case FOURCC_YV24:
-                size = width * height * 3;
+                size = (width * height << 1) + (width * height);
                 break;
             // 32
             case FOURCC_ARGB:
@@ -180,7 +179,7 @@ public enum FourCC {
             case FOURCC_RGBA:
             case FOURCC_I444:
             case FOURCC_AR30:
-                size = width * height << 2;
+                size = this == FOURCC_I444 ? ((width * height << 1) + (width * height)) : (width * height << 2);
                 break;
             // 8
             case FOURCC_I400:
@@ -191,7 +190,7 @@ public enum FourCC {
             case FOURCC_NV21:
             case FOURCC_I420:
             case FOURCC_YV12:
-                size = width * height * 3 >> 1;
+                size = width * height + ((((width + 1) >> 1) * ((height + 1) >> 1)) << 1);
                 break;
             default:
                 throw new IllegalArgumentException();

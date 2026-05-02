@@ -15,7 +15,7 @@
  */
 
 #include <jni.h>
-#include "libyuv_jni.h"
+#include "yuv_jni.h"
 #include "libyuv/video_common.h"
 
 /**
@@ -54,14 +54,15 @@ Java_com_king_libyuv_LibYuv_YUVToI420(JNIEnv *env, jclass clazz, jobject src_y_b
     if (degrees == libyuv::kRotate90 || degrees == libyuv::kRotate270) {
         dst_stride_y = height;
     }
+    jint dst_stride_uv = (dst_stride_y + 1) >> 1;
 
     libyuv::Android420ToI420Rotate(src_y_data, stride_y,
                                    src_u_data, stride_u,
                                    src_v_data, stride_v,
                                    pixel_stride_uv,
                                    (uint8_t *) dst_i420_y_data, dst_stride_y,
-                                   (uint8_t *) dst_i420_u_data, dst_stride_y >> 1,
-                                   (uint8_t *) dst_i420_v_data, dst_stride_y >> 1,
+                                   (uint8_t *) dst_i420_u_data, dst_stride_uv,
+                                   (uint8_t *) dst_i420_v_data, dst_stride_uv,
                                    width, height,
                                    (libyuv::RotationMode) degrees);
 
@@ -81,6 +82,7 @@ Java_com_king_libyuv_LibYuv_NV21ToI420(JNIEnv *env, jclass clazz, jbyteArray src
 
     jint src_y_size = width * height;
     jint src_u_size = ((width + 1) >> 1) * ((height + 1) >> 1);
+    jint src_stride_uv = (width + 1) >> 1;
 
     jbyte *src_nv21_y_data = src_nv21_data;
     jbyte *src_nv21_vu_data = src_nv21_data + src_y_size;
@@ -92,8 +94,8 @@ Java_com_king_libyuv_LibYuv_NV21ToI420(JNIEnv *env, jclass clazz, jbyteArray src
     libyuv::NV21ToI420((const uint8_t *) src_nv21_y_data, width,
                        (const uint8_t *) src_nv21_vu_data, width,
                        (uint8_t *) dst_i420_y_data, width,
-                       (uint8_t *) dst_i420_u_data, width >> 1,
-                       (uint8_t *) dst_i420_v_data, width >> 1,
+                       (uint8_t *) dst_i420_u_data, src_stride_uv,
+                       (uint8_t *) dst_i420_v_data, src_stride_uv,
                        width, height);
 
     env->ReleaseByteArrayElements(src_nv21_array, src_nv21_data, 0);
@@ -113,6 +115,7 @@ Java_com_king_libyuv_LibYuv_I420ToNV21(JNIEnv *env, jclass clazz, jbyteArray src
 
     jint src_y_size = width * height;
     jint src_u_size = ((width + 1) >> 1) * ((height + 1) >> 1);
+    jint src_stride_uv = (width + 1) >> 1;
 
     jbyte *src_i420_y_data = src_i420_data;
     jbyte *src_i420_u_data = src_i420_data + src_y_size;
@@ -123,8 +126,8 @@ Java_com_king_libyuv_LibYuv_I420ToNV21(JNIEnv *env, jclass clazz, jbyteArray src
 
     libyuv::I420ToNV21(
             (const uint8_t *) src_i420_y_data, width,
-            (const uint8_t *) src_i420_u_data, width >> 1,
-            (const uint8_t *) src_i420_v_data, width >> 1,
+            (const uint8_t *) src_i420_u_data, src_stride_uv,
+            (const uint8_t *) src_i420_v_data, src_stride_uv,
             (uint8_t *) dst_nv21_y_data, width,
             (uint8_t *) dst_nv21_uv_data, width,
             width, height);
@@ -148,6 +151,7 @@ Java_com_king_libyuv_LibYuv_ConvertFromI420(JNIEnv *env, jclass clazz,
 
     jint src_y_size = width * height;
     jint src_u_size = ((width + 1) >> 1) * ((height + 1) >> 1);
+    jint src_stride_uv = (width + 1) >> 1;
 
     jbyte *src_i420_y_data = src_i420_data;
     jbyte *src_i420_u_data = src_i420_data + src_y_size;
@@ -155,8 +159,8 @@ Java_com_king_libyuv_LibYuv_ConvertFromI420(JNIEnv *env, jclass clazz,
 
     libyuv::ConvertFromI420(
             (const uint8_t *) src_i420_y_data, width,
-            (const uint8_t *) src_i420_u_data, width >> 1,
-            (const uint8_t *) src_i420_v_data, width >> 1,
+            (const uint8_t *) src_i420_u_data, src_stride_uv,
+            (const uint8_t *) src_i420_v_data, src_stride_uv,
             (uint8_t *) dst_sample_data,
             dst_sample_stride,
             width, height, fourcc);
@@ -190,11 +194,12 @@ Java_com_king_libyuv_LibYuv_ConvertToI420(JNIEnv *env, jclass clazz, jbyteArray 
     if (degrees == libyuv::kRotate90 || degrees == libyuv::kRotate270) {
         dst_stride_y = crop_height;
     }
+    jint dst_stride_uv = (dst_stride_y + 1) >> 1;
 
     libyuv::ConvertToI420((const uint8_t *) src_data, src_size,
                           (uint8_t *) dst_i420_y_data, dst_stride_y,
-                          (uint8_t *) dst_i420_u_data, dst_stride_y >> 1,
-                          (uint8_t *) dst_i420_v_data, dst_stride_y >> 1,
+                          (uint8_t *) dst_i420_u_data, dst_stride_uv,
+                          (uint8_t *) dst_i420_v_data, dst_stride_uv,
                           crop_x, crop_y,
                           width, height,
                           crop_width, crop_height,
@@ -217,6 +222,7 @@ Java_com_king_libyuv_LibYuv_I420Rotate(JNIEnv *env, jclass clazz, jbyteArray src
 
     jint src_i420_y_size = width * height;
     jint src_i420_u_size = ((width + 1) >> 1) * ((height + 1) >> 1);
+    jint src_stride_uv = (width + 1) >> 1;
 
     jbyte *src_i420_y_data = src_i420_data;
     jbyte *src_i420_u_data = src_i420_data + src_i420_y_size;
@@ -230,13 +236,14 @@ Java_com_king_libyuv_LibYuv_I420Rotate(JNIEnv *env, jclass clazz, jbyteArray src
     if (degrees == libyuv::kRotate90 || degrees == libyuv::kRotate270) {
         dst_stride_y = height;
     }
+    jint dst_stride_uv = (dst_stride_y + 1) >> 1;
 
     libyuv::I420Rotate((const uint8_t *) src_i420_y_data, width,
-                       (const uint8_t *) src_i420_u_data, width >> 1,
-                       (const uint8_t *) src_i420_v_data, width >> 1,
+                       (const uint8_t *) src_i420_u_data, src_stride_uv,
+                       (const uint8_t *) src_i420_v_data, src_stride_uv,
                        (uint8_t *) dst_i420_y_data, dst_stride_y,
-                       (uint8_t *) dst_i420_u_data, dst_stride_y >> 1,
-                       (uint8_t *) dst_i420_v_data, dst_stride_y >> 1,
+                       (uint8_t *) dst_i420_u_data, dst_stride_uv,
+                       (uint8_t *) dst_i420_v_data, dst_stride_uv,
                        width, height,
                        (libyuv::RotationMode) degrees);
 
@@ -257,23 +264,25 @@ Java_com_king_libyuv_LibYuv_I420Scale(JNIEnv *env, jclass clazz, jbyteArray src_
 
     jint src_i420_y_size = width * height;
     jint src_i420_u_size = ((width + 1) >> 1) * ((height + 1) >> 1);
+    jint src_stride_uv = (width + 1) >> 1;
     jbyte *src_i420_y_data = src_i420_data;
     jbyte *src_i420_u_data = src_i420_data + src_i420_y_size;
     jbyte *src_i420_v_data = src_i420_data + src_i420_y_size + src_i420_u_size;
 
     jint dst_i420_y_size = dst_width * dst_height;
     jint dst_i420_u_size = ((dst_width + 1) >> 1) * ((dst_height + 1) >> 1);
+    jint dst_stride_uv = (dst_width + 1) >> 1;
     jbyte *dst_i420_y_data = dst_i420_data;
     jbyte *dst_i420_u_data = dst_i420_data + dst_i420_y_size;
     jbyte *dst_i420_v_data = dst_i420_data + dst_i420_y_size + dst_i420_u_size;
 
     libyuv::I420Scale((const uint8_t *) src_i420_y_data, width,
-                      (const uint8_t *) src_i420_u_data, width >> 1,
-                      (const uint8_t *) src_i420_v_data, width >> 1,
+                      (const uint8_t *) src_i420_u_data, src_stride_uv,
+                      (const uint8_t *) src_i420_v_data, src_stride_uv,
                       width, height,
                       (uint8_t *) dst_i420_y_data, dst_width,
-                      (uint8_t *) dst_i420_u_data, dst_width >> 1,
-                      (uint8_t *) dst_i420_v_data, dst_width >> 1,
+                      (uint8_t *) dst_i420_u_data, dst_stride_uv,
+                      (uint8_t *) dst_i420_v_data, dst_stride_uv,
                       dst_width, dst_height,
                       (libyuv::FilterMode) filtering);
 
@@ -293,7 +302,7 @@ Java_com_king_libyuv_LibYuv_I420Crop(JNIEnv *env, jclass clazz, jbyteArray src_i
     jbyte *src_i420_data = env->GetByteArrayElements(src_i420_array, JNI_FALSE);
     jbyte *dst_i420_data = env->GetByteArrayElements(dst_i420_array, JNI_FALSE);
 
-    jint src_i420_size = width * height * 3 >> 1;
+    jint src_i420_size = width * height + ((((width + 1) >> 1) * ((height + 1) >> 1)) << 1);
 
     jint dst_i420_y_size = crop_width * crop_height;
     jint dst_i420_u_size = ((crop_width + 1) >> 1) * ((crop_height + 1) >> 1);
@@ -303,8 +312,8 @@ Java_com_king_libyuv_LibYuv_I420Crop(JNIEnv *env, jclass clazz, jbyteArray src_i
 
     libyuv::ConvertToI420((const uint8_t *) src_i420_data, src_i420_size,
                           (uint8_t *) dst_i420_y_data, crop_width,
-                          (uint8_t *) dst_i420_u_data, crop_width >> 1,
-                          (uint8_t *) dst_i420_v_data, crop_width >> 1,
+                          (uint8_t *) dst_i420_u_data, (crop_width + 1) >> 1,
+                          (uint8_t *) dst_i420_v_data, (crop_width + 1) >> 1,
                           crop_x, crop_y,
                           width, height,
                           crop_width, crop_height,
@@ -325,7 +334,8 @@ Java_com_king_libyuv_LibYuv_I420Mirror(JNIEnv *env, jclass clazz, jbyteArray src
     jbyte *dst_i420_data = env->GetByteArrayElements(dst_i420_array, JNI_FALSE);
 
     jint src_i420_y_size = width * height;
-    jint src_i420_u_size = src_i420_y_size >> 2;
+    jint src_i420_u_size = ((width + 1) >> 1) * ((height + 1) >> 1);
+    jint src_stride_uv = (width + 1) >> 1;
 
     jbyte *src_i420_y_data = src_i420_data;
     jbyte *src_i420_u_data = src_i420_data + src_i420_y_size;
@@ -336,11 +346,11 @@ Java_com_king_libyuv_LibYuv_I420Mirror(JNIEnv *env, jclass clazz, jbyteArray src
     jbyte *dst_i420_v_data = dst_i420_data + src_i420_y_size + src_i420_u_size;
 
     libyuv::I420Mirror((const uint8_t *) src_i420_y_data, width,
-                       (const uint8_t *) src_i420_u_data, width >> 1,
-                       (const uint8_t *) src_i420_v_data, width >> 1,
+                       (const uint8_t *) src_i420_u_data, src_stride_uv,
+                       (const uint8_t *) src_i420_v_data, src_stride_uv,
                        (uint8_t *) dst_i420_y_data, width,
-                       (uint8_t *) dst_i420_u_data, width >> 1,
-                       (uint8_t *) dst_i420_v_data, width >> 1,
+                       (uint8_t *) dst_i420_u_data, src_stride_uv,
+                       (uint8_t *) dst_i420_v_data, src_stride_uv,
                        width, height);
 
     env->ReleaseByteArrayElements(src_i420_array, src_i420_data, 0);
