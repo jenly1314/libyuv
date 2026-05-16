@@ -1,0 +1,41 @@
+[versions]
+compileSdk = "34"
+minSdk = "21"
+targetSdk = "34"
+
+agp = "8.2.0"
+kotlin = "1.9.20"
+dokka = "1.9.20"
+mavenPublish = "0.34.0"
+
+coreKtx = "1.12.0"
+appcompat = "1.4.1"
+annotation = "1.4.0"
+material = "1.12.0"
+constraintlayout = "2.1.3"
+lifecycleRuntimeKtx = "2.5.1"
+camerascan = "1.3.0"
+
+junit4 = "4.13.2"
+androidExtJunit = "1.1.3"
+espresso = "3.4.0"
+
+[libraries]
+androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
+androidx-annotation = { group = "androidx.annotation", name = "annotation", version.ref = "annotation" }
+google-material = { group = "com.google.android.material", name = "material", version.ref = "material" }
+androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
+androidx-lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycleRuntimeKtx" }
+jenly-camerascan = { group = "com.github.jenly1314", name = "camera-scan", version.ref = "camerascan" }
+
+junit4 = { group = "junit", name = "junit", version.ref = "junit4" }
+androidx-test-ext-junit = { group = "androidx.test.ext", name = "junit", version.ref = "androidExtJunit" }
+androidx-test-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espresso" }
+
+[plugins]
+android-application = { id = "com.android.application", version.ref = "agp" }
+android-library = { id = "com.android.library", version.ref = "agp" }
+kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+dokka = { id = "org.jetbrains.dokka", version.ref = "dokka" }
+maven-publish = { id = "com.vanniktech.maven.publish", version.ref = "mavenPublish" }
